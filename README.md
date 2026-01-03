@@ -1,5 +1,5 @@
-# Legal-GraphRAG: Intelligent Regulation Search System
-### 사규 지능형 검색 시스템 (사내 규정 특화)
+# DTRO Legal-GraphRAG
+### 대구교통공사 사규 지능형 검색 시스템 (Intelligent Regulation Search System)
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg) ![Python](https://img.shields.io/badge/python-3.10+-blue.svg) ![Ollama](https://img.shields.io/badge/Ollama-Local%20LLM-orange)
 
