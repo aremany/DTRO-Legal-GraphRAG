@@ -1,0 +1,31 @@
+# 대구교통공사 규정 챗봇 - Python 패키지 목록
+
+# 웹 프레임워크
+flask==3.0.0
+werkzeug==3.0.1
+
+# 벡터 데이터베이스
+chromadb==0.4.22
+
+# 임베딩 모델
+sentence-transformers==2.2.2
+transformers==4.36.0
+
+# Re-ranking (선택 사항 - 설치 시 성능 향상)
+# FlagEmbedding==1.2.0
+
+# HTTP 요청
+requests==2.31.0
+urllib3==2.1.0
+
+# 기타 의존성
+tqdm==4.66.1
+numpy==1.24.3
+torch==2.1.0
+
+# 주의사항:
+# 1. FlagEmbedding은 선택 사항입니다 (ColBERT Re-ranking 사용 시 필요)
+# 2. torch는 CUDA 버전에 맞게 설치하세요:
+#    - CUDA 11.8: pip install torch==2.1.0+cu118 -f https://download.pytorch.org/whl/torch_stable.html
+#    - CUDA 12.1: pip install torch==2.1.0+cu121 -f https://download.pytorch.org/whl/torch_stable.html
+#    - CPU only: pip install torch==2.1.0+cpu -f https://download.pytorch.org/whl/torch_stable.html
