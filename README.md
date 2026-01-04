@@ -66,7 +66,7 @@
 
 ## 🚀 초간단 실행 (권장)
 
-**이 배포본에는 이미 임베딩된 Qdrant DB가 포함되어 있습니다!**
+**이 배포본에는 이미 임베딩된 ChromaDB가 포함되어 있습니다!**
 
 ### 실행 방법
 1. [Python 3.10 이상](https://www.python.org/downloads/) 설치
@@ -89,13 +89,13 @@
 ## 📂 프로젝트 구조
 
 ```
-DTRO_Qdrant_Release/
+DTRO_GraphRAG_OpenSource/
 ├── data/                       # 사규 원본 데이터 (15개 카테고리)
-├── qdrant_storage/             # 임베딩된 Qdrant DB (2,863개 문서)
+├── chroma_db_fulltext/         # 임베딩된 ChromaDB (2,863개 문서)
 ├── static/                     # 로고 등 정적 리소스
 ├── templates/                  # 웹 UI 템플릿
-├── chatbot_qdrant.py           # 챗봇 서버 메인 코드
-├── embedding_fulltext_qdrant.py # Qdrant 임베딩 생성 스크립트
+├── chatbot_graphrag.py         # 챗봇 서버 메인 코드
+├── embedding_fulltext.py       # ChromaDB 임베딩 생성 스크립트
 ├── 챗봇실행.bat                 # 간편 실행기 (DB 포함)
 ├── setup_and_run.bat           # 전체 설치 실행기
 ├── requirements.txt            # 의존성 패키지 목록
@@ -120,10 +120,10 @@ pip install -r requirements.txt
 ollama pull hf.co/unsloth/gemma-3n-E4B-it-GGUF:Q4_K_M
 
 # 4. 데이터 임베딩 (최초 1회)
-python embedding_fulltext_qdrant.py
+python embedding_fulltext.py
 
 # 5. 챗봇 실행
-python chatbot_qdrant.py
+python chatbot_graphrag.py
 ```
 
 브라우저에서 `http://localhost:5000` 접속
@@ -145,7 +145,7 @@ python chatbot_qdrant.py
 *   **프롬프트 커스터마이징**: 답변 스타일을 자유롭게 조정
 
 ### 3. 고성능 검색
-- **1차 검색**: Qdrant 벡터 유사도 검색 (Top 20)
+- **1차 검색**: ChromaDB 벡터 유사도 검색 (Top 20)
 - **2차 Re-ranking**: ColBERT 기반 정밀 재정렬 (Top 5)
 - **결과**: 높은 정확도와 빠른 속도 (평균 응답 시간 2~3초)
 
@@ -158,9 +158,9 @@ python chatbot_qdrant.py
 ### 1. 데이터 교체
 ```bash
 # 1. data/ 폴더의 TXT 파일을 귀사 사규로 교체
-# 2. qdrant_storage 폴더 삭제
+# 2. chroma_db_fulltext 폴더 삭제
 # 3. 재임베딩
-python embedding_fulltext_qdrant.py
+python embedding_fulltext.py
 ```
 
 ### 2. 브랜딩 변경
@@ -175,8 +175,8 @@ python embedding_fulltext_qdrant.py
 본 프로젝트에 포함된 사규 데이터는 **2025년 5월 말** 기준입니다.  
 최신 개정 사항을 반영하려면:
 1. `data/` 폴더 내의 TXT 파일을 최신 사규로 교체
-2. `qdrant_storage` 폴더 삭제
-3. `python embedding_fulltext_qdrant.py` 재실행
+2. `chroma_db_fulltext` 폴더 삭제
+3. `python embedding_fulltext.py` 재실행
 
 ---
 
@@ -184,7 +184,7 @@ python embedding_fulltext_qdrant.py
 
 | 구분 | 기술 | 비고 |
 | :--- | :--- | :--- |
-| **Vector DB** | Qdrant | Rust 기반 고성능 벡터 검색 |
+| **Vector DB** | ChromaDB | Python 생태계 호환성 우수 |
 | **Embedding** | BGE-M3 | 한국어 특화, 8192 차원 |
 | **Re-ranking** | ColBERT | 정밀 재정렬 |
 | **LLM** | Ollama (Gemma 3) | 로컬 실행, GPU 불필요 |
@@ -204,16 +204,15 @@ python embedding_fulltext_qdrant.py
 
 ---
 
-## 📈 성능 비교: Qdrant vs ChromaDB
+## 📈 ChromaDB의 장점
 
-| 항목 | Qdrant | ChromaDB |
-|:---|:---|:---|
-| **DB 용량** | ~50MB | ~100MB |
-| **검색 속도** | 0.5초 | 1.2초 |
-| **메모리 사용** | 200MB | 500MB |
-| **라이브러리 크기** | 100MB | 200MB |
+- **설치 간편:** `pip install chromadb`만으로 즉시 사용 가능
+- **Python 생태계 호환:** Python 프로젝트와 완벽한 통합
+- **활발한 커뮤니티:** 풍부한 문서와 예제
+- **충분한 성능:** 대부분의 사용 사례에 만족스러운 속도
+- **오픈소스:** 완전 무료, 상업적 사용 가능
 
-→ **Qdrant가 모든 면에서 우수합니다!**
+> **참고:** 더 높은 성능이 필요한 경우 Qdrant 등 다른 벡터 DB로 쉽게 전환 가능합니다.
 
 ---
 
@@ -245,12 +244,12 @@ python embedding_fulltext_qdrant.py
 ## 🙏 감사의 말
 
 이 프로젝트는 다음 오픈소스 프로젝트들의 도움으로 완성되었습니다:
-- [Qdrant](https://qdrant.tech/) - 고성능 벡터 검색 엔진
+- [ChromaDB](https://www.trychroma.com/) - 사용하기 쉬운 벡터 검색 엔진
 - [Ollama](https://ollama.com/) - 로컬 LLM 실행 플랫폼
 - [BGE-M3](https://huggingface.co/BAAI/bge-m3) - 한국어 임베딩 모델
 - [Flask](https://flask.palletsprojects.com/) - Python 웹 프레임워크
 
 ---
 
-**Powered by Qdrant, BGE-M3, and Ollama**  
+**Powered by ChromaDB, BGE-M3, and Ollama**  
 **Developed with ❤️ by 강동우 @ DTRO**
