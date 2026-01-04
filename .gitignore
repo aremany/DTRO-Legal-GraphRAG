@@ -7,9 +7,9 @@ __pycache__/
 venv/
 env/
 
-# Database (사용자가 생성)
-chroma_db/
-chroma_db_fulltext/
+# Database (배포 시 포함됨)
+# chroma_db/
+# chroma_db_fulltext/
 *.pkl
 *.sqlite3
 
